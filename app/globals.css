@@ -1,26 +1,234 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ==========================================================================
+   DESIGN TOKENS  (Tailwind v4 @theme — single source of truth)
+   ========================================================================== */
+@theme {
+  /* --- Step 4: Color tokens --------------------------------------------- */
+  /* Brand */
+  --color-brand-primary: #6d5ef9;
+  --color-brand-primary-hover: #5a4df0;
+  --color-brand-secondary: #ff8a65;
+
+  /* Background */
+  --color-background-primary: #fcfcfd;
+  --color-background-secondary: #f8fafc;
+  --color-background-surface: #ffffff;
+  --color-background-elevated: #ffffff;
+
+  /* Text */
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-text-inverse: #ffffff;
+
+  /* Border */
+  --color-border-default: #e2e8f0;
+  --color-border-light: #f1f5f9;
+  --color-border-focus: #6d5ef9;
+
+  /* Status */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Dark surface (footer, mobile menu) */
+  --color-background-inverse: #0b0b14;
+
+  /* --- Step 7: Radius tokens -------------------------------------------- */
+  --radius-sm: 0.75rem; /* 12px */
+  --radius-md: 1.25rem; /* 20px */
+  --radius-lg: 1.75rem; /* 28px */
+  --radius-xl: 2.5rem; /* 40px */
+  --radius-full: 9999px;
+
+  /* --- Step 8: Shadow tokens -------------------------------------------- */
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 12px 30px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 24px 60px rgba(15, 23, 42, 0.12);
+  --shadow-glow: 0 0 60px rgba(109, 94, 249, 0.18);
+
+  /* --- Step 9: Layout tokens -------------------------------------------- */
+  --container-max: 1280px;
+  --container-content: 1180px;
+  --section-desktop: 120px;
+  --section-tablet: 96px;
+  --section-mobile: 72px;
+
+  /* --- Motion tokens ---------------------------------------------------- */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --ease-default: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Fonts reference next/font runtime variables → must be `inline` so the
+   generated utilities embed the variable rather than the theme indirection. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ==========================================================================
+   Step 5: Semantic typography utilities
+   (px converted to rem to respect user font-size settings)
+   ========================================================================== */
+@utility text-display-hero {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw + 1rem, 4.5rem); /* 48 → 72 */
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+@utility text-display-section {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4vw + 0.5rem, 3.5rem); /* 36 → 56 */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+@utility text-heading-lg {
+  font-family: var(--font-sans);
+  font-size: 2rem; /* 32 */
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+@utility text-heading-md {
+  font-family: var(--font-sans);
+  font-size: 1.5rem; /* 24 */
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+@utility text-heading-sm {
+  font-family: var(--font-sans);
+  font-size: 1.25rem; /* 20 */
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+@utility text-body-lg {
+  font-family: var(--font-sans);
+  font-size: 1.25rem; /* 20 */
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+@utility text-body-md {
+  font-family: var(--font-sans);
+  font-size: 1.125rem; /* 18 */
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+@utility text-body-sm {
+  font-family: var(--font-sans);
+  font-size: 1rem; /* 16 */
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+@utility text-caption {
+  font-family: var(--font-sans);
+  font-size: 0.875rem; /* 14 */
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+@utility text-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem; /* 12 */
+  line-height: 1;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ==========================================================================
+   Step 15: Decorative utilities (gradients, glassmorphism)
+   ========================================================================== */
+@utility bg-brand-gradient {
+  background-image: linear-gradient(
+    135deg,
+    #6d5ef9 0%,
+    #a855f7 50%,
+    #ff8a65 100%
+  );
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(
+    135deg,
+    #6d5ef9 0%,
+    #a855f7 50%,
+    #ff8a65 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility glass {
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid var(--color-border-light);
+}
+
+/* ==========================================================================
+   Entrance animation (respects prefers-reduced-motion via the base guard)
+   ========================================================================== */
+@utility animate-fade-up {
+  animation: fade-up 0.6s var(--ease-default) both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
+/* ==========================================================================
+   Base layer
+   ========================================================================== */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-brand-primary) 22%, transparent);
+  color: var(--color-text-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
