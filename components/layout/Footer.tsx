@@ -103,7 +103,19 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <Container className="flex flex-col items-center gap-6 py-6 text-body-sm md:flex-row md:justify-between">
-          <p>&copy; 2025 NorthPeak Digital. All rights reserved.</p>
+          <div className="flex flex-col gap-1 text-center md:text-left">
+            <p>&copy; 2025 NorthPeak Digital. All rights reserved.</p>
+            <p className="text-caption text-white/60">
+              <a
+                href="https://digitalheroesco.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 transition-colors hover:text-white"
+              >
+                Built for Digital Heroes Training Task
+              </a>
+            </p>
+          </div>
           <p className="flex items-center gap-2">
             <ShieldCheck className="text-brand-secondary h-4 w-4" />
             Trusted by 200+ businesses worldwide.

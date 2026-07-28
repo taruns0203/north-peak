@@ -23,6 +23,9 @@ export function HeroIllustration() {
           width={1024}
           height={682}
           priority
+          loading="eager"
+          fetchPriority="high"
+          sizes="(min-width: 1024px) 60vw, 100vw"
           className="w-[130%] max-w-none scale-100 opacity-80 lg:scale-150"
         />
       </div>
@@ -34,6 +37,8 @@ export function HeroIllustration() {
         width={1024}
         height={682}
         priority
+        loading="eager"
+        fetchPriority="high"
         sizes="(min-width: 1024px) 50vw, 90vw"
         className="relative z-10 w-full"
       />
